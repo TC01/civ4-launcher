@@ -123,14 +123,25 @@ Public Class Form1
         OldModsList = ComboBox2.Items.Count()
         ComboBox2.Items.Clear()
 
-        'Get the list of mods (default vanilla)
-        ModsList = My.Computer.FileSystem.GetDirectories(CivilizationPath & "Mods\")
-        If CivVersion = "Warlords" Then
-            ModsList = My.Computer.FileSystem.GetDirectories(WarlordsPath & "Mods\")
-        ElseIf CivVersion = "Beyond the Sword" Then
-            ModsList = My.Computer.FileSystem.GetDirectories(BTSPath & "Mods\")
-        ElseIf CivVersion = "Civilization IV Colonization" Then
-            ModsList = My.Computer.FileSystem.GetDirectories(ColonizationPath & "Mods\")
+        ' Get the list of mods (default vanilla)
+        If Not My.Settings.NoCiv Then
+            ModsList = My.Computer.FileSystem.GetDirectories(CivilizationPath & "Mods\")
+            If CivVersion = "Warlords" Then
+                ModsList = My.Computer.FileSystem.GetDirectories(WarlordsPath & "Mods\")
+            ElseIf CivVersion = "Beyond the Sword" Then
+                ModsList = My.Computer.FileSystem.GetDirectories(BTSPath & "Mods\")
+            End If
+        End If
+
+        ' Then do Colonization as a special case.
+        If CivVersion = "Civilization IV Colonization" Then
+            ' The Colonization mod list may not exist...
+            If My.Computer.FileSystem.DirectoryExists(ColonizationPath & "Mods\") Then
+                ModsList = My.Computer.FileSystem.GetDirectories(ColonizationPath & "Mods\")
+            Else
+                MsgBox("You have no Colonization mods installed, and so the Colonization Mods\ folder does not exist.")
+                Return
+            End If
         End If
 
         ComboBox2.Items.Add("Regular " & CivVersion)        'So we can start up unmodded Civ versions too!
