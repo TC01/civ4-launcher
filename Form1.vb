@@ -119,7 +119,7 @@ Public Class Form1
         Dim CivVersion As String = ComboBox1.GetItemText(ComboBox1.SelectedItem())
         Dim ModsList As System.Collections.ObjectModel.ReadOnlyCollection(Of String)
         Dim CivModString As String
-        Dim CivModStart, OldModsList As Integer
+        Dim CivModStart, OldModsList, Count As Integer
         OldModsList = ComboBox2.Items.Count()
         ComboBox2.Items.Clear()
 
@@ -138,14 +138,14 @@ Public Class Form1
             ' The Colonization mod list may not exist...
             If My.Computer.FileSystem.DirectoryExists(ColonizationPath & "Mods\") Then
                 ModsList = My.Computer.FileSystem.GetDirectories(ColonizationPath & "Mods\")
+                Count = ModsList.Count()
             Else
-                MsgBox("You have no Colonization mods installed, and so the Colonization Mods\ folder does not exist.")
-                Return
+                Count = 0
             End If
         End If
 
         ComboBox2.Items.Add("Regular " & CivVersion)        'So we can start up unmodded Civ versions too!
-        For CivMod As Integer = 0 To ModsList.Count() - 1 Step 1
+        For CivMod As Integer = 0 To Count - 1 Step 1
             CivModString = ModsList.Item(CivMod)
             CivModStart = CivModString.LastIndexOf("\")
             CivModString = CivModString.Substring(CivModStart + 1)
