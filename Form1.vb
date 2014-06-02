@@ -84,7 +84,7 @@ Public Class Form1
                     My.Settings.OtherColPath = ColonizationPath
                 End If
             Else
-                ColonizationPath = CivInputPath & "\"
+                ColonizationPath = ColInputPath & "\"
             End If
         End If
 
@@ -288,10 +288,6 @@ Public Class Form1
         'Construct the root of both registry strings
         RLocalMachine = LocalMachine & OSType & RegRoot
         RCurrentUser = CurrentUser & OSType & RegRoot
-
-        'Old buggy code to do this
-        'RLocalMachine = LocalMachine & RegRoot
-        'RCurrentUser = CurrentUser & RegRoot
 
         'First standard, gold, and complete registries on local machine
         RegKey = My.Computer.Registry.GetValue(RLocalMachine & RegPath, "INSTALLDIR", Nothing)
