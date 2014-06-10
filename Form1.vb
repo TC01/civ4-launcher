@@ -126,10 +126,13 @@ Public Class Form1
         ' Get the list of mods (default vanilla)
         If Not My.Settings.NoCiv Then
             ModsList = My.Computer.FileSystem.GetDirectories(CivilizationPath & "Mods\")
+            Count = ModsList.Count()
             If CivVersion = "Warlords" Then
                 ModsList = My.Computer.FileSystem.GetDirectories(WarlordsPath & "Mods\")
+                Count = ModsList.Count()
             ElseIf CivVersion = "Beyond the Sword" Then
                 ModsList = My.Computer.FileSystem.GetDirectories(BTSPath & "Mods\")
+                Count = ModsList.Count()
             End If
         End If
 
